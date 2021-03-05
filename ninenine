@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+
+/*
+* 21.18 과제1_2
+* 알아야 할 내용: 2차원 배열을 포인터를 이용하여 함수에 넣기
+*/
+void multiple_table(int (*a)[9][9]);
+int main(void) {
+	int gugu[9][9];
+	int i, j;
+
+	for (i = 0; i < 9; i++)
+		for (j = 0; j < 9; j++)
+			gugu[i][j] = (i+1) * (j+1);
+
+	cout << "간단한 구구단 프로그램" << endl;
+	cout << "*******************************" << endl;
+	
+	while (1) multiple_table(&gugu);
+}
+void multiple_table(int(* gugu)[9][9]) {
+
+	int a, b;
+	cout << "1과 9사이의 숫자 2개를 입력하시오" << endl;
+	cin >> a >> b;
+	cout << a << "x" << b << "는 " << (*gugu)[a-1][b-1] << "입니다" << endl;
+	cout << "*******************************" << endl;
+}
