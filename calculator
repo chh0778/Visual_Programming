@@ -1,0 +1,105 @@
+#include<iostream>
+/*
+2017130036이찬해 Homwork #01
+1. 계산기와 구구단 출력 2가지 기능을 갖는 프로그램 작성
+2. 프로그램 시작 후 입력을 통해 계산기 기능과 구구단 기능 중 하나를 선택
+
+사칙연산 프로그램
+
+*/
+using namespace std;
+
+int Add(int * a, int * b);
+int Substract(int * a, int * b);
+int Multiply(int a, int b);
+int Divide(int a, int b);
+int rest(int* a, int* b);
+int main(void) {
+	int n;
+	int a, b;
+	char onoff;
+	while (1) {
+		onoff = 0;
+		n = 0;
+		cout << endl<<"\t\t계산기 프로그램" << endl << endl;
+		cout << "****************" << endl;
+		cout << "1. Add" << endl;
+		cout << "2. Substract" << endl;
+		cout << "3. Multiply" << endl;
+		cout << "4. DIvide" << endl;
+		cout << "5. Quit" << endl;
+		cout << "****************" << endl << endl;
+
+		cout << "입력 : ";
+		cin >> n;				//소수, 문자, 1,2,3,4,5 이외의 수가 들어가면 재입력
+
+		switch (n) {
+		case 1:
+			cout << "정수 2개 입력 : ";
+			cin >> a >> b;
+			cout << a << " + " << b << " = " << Add(&a, &b) << endl;
+			break;
+		case 2:
+			cout << "정수 2개 입력 : ";
+			cin >> a >> b;
+			cout << a << " - " << b << " = " << Substract(&a, &b) << endl;
+			break;
+		case 3:
+			cout << "정수 2개 입력 : ";
+			cin >> a >> b;
+			cout << a << " x " << b << " = " << Multiply(a, b) << endl;
+			break;
+		case 4:
+			cout << "정수 2개 입력 : ";
+			cin >> a >> b;
+			while (1) {
+				if (b == 0) {
+					cout << "b 다시 입력: ";
+					cin >> b;
+				}
+				else break;
+			}
+			if (rest(&a, &b) == 0) cout << a << " / " << b << " = " << Divide(a, b) << endl;
+			else cout << a << " / " << b << " = " << Divide(a, b) << " *** " << rest(&a, &b) << endl;
+			break;
+		case 5:
+			break;
+		default:
+			continue;
+		}
+		while (1) {
+			onoff = 0;
+			cout << "종료하시겠습니까?(y/n) ";
+			cin >> onoff;
+			switch (onoff) {
+			case 'y':
+				return 0;
+				break;
+			case 'n':
+			default:
+				break;
+			}
+			if (onoff == 'n') break;
+		}
+
+	}
+}
+int Add(int *a, int *b) {
+	return *a + *b;
+}
+
+int Substract(int *a, int *b) {
+	return *a - *b;
+}
+
+int Multiply(int a, int b) {
+	return a * b;
+}
+
+int Divide(int a, int b) {
+	return a / b;
+}
+
+int rest(int* a, int* b) {
+	return *a % *b;
+}
