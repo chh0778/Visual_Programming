@@ -1,0 +1,179 @@
+#include<iostream>
+/*
+2017130036이찬해 Homwork #01
+1. 계산기와 구구단 출력 2가지 기능을 갖는 프로그램 작성
+2. 프로그램 시작 후 입력을 통해 계산기 기능과 구구단 기능 중 하나를 선택
+
+사칙연산 프로그램
+
+*/
+using namespace std;
+//1. 4가지 연산은 모두 함수로 구현할것
+int Add(int * a, int * b);
+int Substract(int * a, int * b);			//2. 덧셈 뺄셈은 포인터 변수를 통해 입력 값 전달
+int Multiply(int a, int b);
+int Divide(int a, int b);					//3. 곱셈 나눗셈은 일반 변수 통해 입력 값 전달
+int rest(int* a, int* b);
+void multiple_table(int(*a)[9][9]);
+int main(void) {
+	int mode;
+	int option;
+	int a, b;
+	char onoff;
+
+	//계산기와 구구단 중 하나의 기능을 고르는 단계
+	while (1) {
+		cout << "모드입력(1. 계산기, 2. 구구단): ";
+		cin >> mode;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(256, '\n');
+			continue;
+		}
+		else {
+			break;
+		}
+	}
+	//계산기 모드
+	if (mode == 1) {
+		while (1) {
+			cout << endl << "\t\t계산기 프로그램" << endl << endl;
+			cout << "****************" << endl;
+			cout << "1. Add" << endl;
+			cout << "2. Substract" << endl;
+			cout << "3. Multiply" << endl;
+			cout << "4. DIvide" << endl;
+			cout << "5. Quit" << endl;
+			cout << "****************" << endl << endl;
+
+			while (1) {
+				cout << "입력 : ";
+				cin >> option;
+				//cin 에러가 나면 cin 상태를 초기화하고, 입력버퍼를 초기화해준 후 재입력
+				//cin 에러는 정수형 변수 option에 다른 형의 문자를 넣으면 발생한다.
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(256, '\n');
+					continue;
+				}
+				//1,2,3,4를 입력하면 진행
+				else if (option >= 1 && option <= 4) {
+					break;
+				}
+				//5를 입력하면 종료
+				else if (option == 5) {
+					return 0;
+				}
+				//1,2,3,4,5 이외의 수가 들어가면 재입력
+				else {
+					continue;
+				}
+			}
+
+			cout << endl;
+			while (1) {
+				cout << "정수 2개 입력 : ";
+				cin >> a >> b;
+				//cin 에러가 나면 cin 상태를 초기화하고, 입력버퍼를 초기화해준 후 재입력
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(256, '\n');
+					continue;
+				}
+				else {
+					break;
+				}
+			}
+			switch (option) {
+			case 1:
+				cout << a << " + " << b << " = " << Add(&a, &b) << endl;
+				break;
+			case 2:
+				cout << a << " - " << b << " = " << Substract(&a, &b) << endl;
+				break;
+			case 3:
+				cout << a << " x " << b << " = " << Multiply(a, b) << endl;
+				break;
+			case 4:
+				//5. b(분모)에 0 입력시 재입력
+				while (1) {
+					if (b == 0) {
+						cout << "분모 다시 입력: ";
+						cin >> b;
+					}
+					else {
+						break;
+					}
+				}
+				if (rest(&a, &b) == 0) {
+					cout << a << " / " << b << " = " << Divide(a, b) << endl;
+				}
+				else {
+					cout << a << " / " << b << " = " << Divide(a, b) << " *** " << rest(&a, &b) << endl;
+				}
+				break;
+			}
+
+			while (1) {
+				cout << endl << "종료하시겠습니까?(y/n) ";
+				cin >> onoff;
+				switch (onoff) {
+				case 'y':
+					return 0;
+				case 'n':
+					break;
+					//7. 종료확인문구 시 입력 요청 이외의 숫자 혹은 문자 입력시 재입력
+				default:
+					cin.clear();
+					cin.ignore(256, '\n');
+					continue;
+				}
+				if (onoff == 'n') break;
+			}
+		}
+	}
+	//구구단 모드
+	else {
+		int gugu[9][9];
+		int i, j;
+
+		for (i = 0; i < 9; i++)
+			for (j = 0; j < 9; j++)
+				gugu[i][j] = (i + 1) * (j + 1);
+		cout << endl;
+		cout << "간단한 구구단 프로그램" << endl;
+		cout << "*******************************" << endl;
+
+		while (1) multiple_table(&gugu);
+	}
+}
+
+//사칙연산 함수들
+int Add(int *a, int *b) {
+	return *a + *b;
+}
+
+int Substract(int *a, int *b) {
+	return *a - *b;
+}
+
+int Multiply(int a, int b) {
+	return a * b;
+}
+
+int Divide(int a, int b) {
+	return a / b;
+}
+
+int rest(int* a, int* b) {
+	return *a % *b;
+}
+//구구단 테이블 함수
+void multiple_table(int(*gugu)[9][9]) {
+
+	int a, b;
+	cout << "1과 9사이의 숫자 2개를 입력하시오" << endl;
+	cin >> a >> b;
+	cout << a << "x" << b << "는 " << (*gugu)[a - 1][b - 1] << "입니다" << endl;
+	cout << "*******************************" << endl;
+}
