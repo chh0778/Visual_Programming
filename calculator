@@ -32,44 +32,48 @@ int main(void) {
 
 		cout << "입력 : ";
 		cin >> n;				//소수, 문자, 1,2,3,4,5 이외의 수가 들어가면 재입력
-
+		cout << endl;
+		cout << "정수 2개 입력 : ";
+		cin >> a >> b;
 		switch (n) {
-		case 1:
-			cout << "정수 2개 입력 : ";
-			cin >> a >> b;
+		case 1:					//덧셈연산
 			cout << a << " + " << b << " = " << Add(&a, &b) << endl;
 			break;
-		case 2:
-			cout << "정수 2개 입력 : ";
-			cin >> a >> b;
+		case 2:					//뺄셈연산
 			cout << a << " - " << b << " = " << Substract(&a, &b) << endl;
 			break;
-		case 3:
-			cout << "정수 2개 입력 : ";
-			cin >> a >> b;
+		case 3:					//곱셈연산
 			cout << a << " x " << b << " = " << Multiply(a, b) << endl;
 			break;
-		case 4:
-			cout << "정수 2개 입력 : ";
-			cin >> a >> b;
+		case 4:					//나눗셈연산
+			//0 입력시: 다시
+			//숫자입력시: 연산 진행
+			//문자 입력시: 다시
+
 			while (1) {
 				if (b == 0) {
-					cout << "b 다시 입력: ";
+					cout << "분모 다시 입력: ";
 					cin >> b;
 				}
-				else break;
+				else {
+					break;
+				}
 			}
 			if (rest(&a, &b) == 0) cout << a << " / " << b << " = " << Divide(a, b) << endl;
-			else cout << a << " / " << b << " = " << Divide(a, b) << " *** " << rest(&a, &b) << endl;
+			else cout << a << " / " << b << " = " << Divide(a, b) << " *** " << rest(&a, &b) << endl;		//나눗셈 분모 0 입력시 분모값만 다시 입력받음
 			break;
+
 		case 5:
 			break;
 		default:
+			cin.clear();
+			cin.ignore(256, '\n');
 			continue;
 		}
+
 		while (1) {
 			onoff = 0;
-			cout << "종료하시겠습니까?(y/n) ";
+			cout <<endl<< "종료하시겠습니까?(y/n) ";
 			cin >> onoff;
 			switch (onoff) {
 			case 'y':
@@ -84,6 +88,8 @@ int main(void) {
 
 	}
 }
+
+
 int Add(int *a, int *b) {
 	return *a + *b;
 }
