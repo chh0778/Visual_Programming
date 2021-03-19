@@ -1,0 +1,49 @@
+/*
+	2017130036 이찬해 HW2
+	HW1에서 작성했던 구구단 출력 프로그램을 클래스를 이용하여 개선
+*/
+#include<iostream>
+using namespace std;
+
+class print_multiple_table {
+	
+	int gugu[9][9];	//9X9정수 배열 만들기
+	int result;
+
+public:
+	void initialize();
+	int mulitiple_table(int a, int b);//multiple_table만들기
+};
+
+int main() {
+	print_multiple_table m;
+	int a, b;
+
+	cout << "simple multiple table program" << endl;
+	cout << "*******************************" << endl;
+
+	m.initialize();	//멤버변수 배열에 구구단 값 저장
+
+	while (1) { //무한반복하도록 조건에 1을 넣음
+		cout << "Put two numbers from 1 to 9" << endl;
+		cin >> a >> b;
+
+		m.mulitiple_table(a, b);
+
+		//배열에서 찾은 구구단 값을 화면에 표시함
+		cout << a << " X " << b << " = " << m.mulitiple_table(a, b) <<  endl;
+		cout << "*******************************" << endl;
+	}
+}
+
+void print_multiple_table::initialize() {
+	int i, j;
+
+	for (i = 0; i < 9; i++)
+		for (j = 0; j < 9; j++)
+			gugu[i][j] = (i + 1) * (j + 1);
+}
+int print_multiple_table::mulitiple_table(int a, int b) {			//키보드로 입력받은 두 개의 숫자를 인자로 받아서 구구단을 찾는 함수
+	result = gugu[a - 1][b - 1];
+	return result;
+}
